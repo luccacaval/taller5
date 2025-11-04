@@ -18,19 +18,22 @@ public class ABB<T extends Comparable<T>> {
     }
 
     public class HandleABB implements Handle{
+        Nodo _nodo;
+        ABB<T> _arbol;
 
+        private HandleABB (Nodo nodo,ABB<T>  arbol){
+            this._nodo = nodo;
+            this._arbol = arbol;
+        }
         @Override
         public Object valor() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'valor'");
+            return _nodo.valor;
         }
 
         @Override
         public void eliminar() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'eliminar'");
+            _arbol.eliminar(_nodo.valor);
         }
-        /* ¡COMPLETAR! */
     }
 
     public ABB() {
@@ -70,7 +73,32 @@ public class ABB<T extends Comparable<T>> {
     }
 
     public HandleABB insertar(T elem){
-        throw new UnsupportedOperationException("No implementado aún");
+        if (this.raiz == null){
+            this.raiz = new Nodo(null, elem);
+            return new HandleABB(raiz,this);
+        } else{
+            Nodo nodoActual = this.raiz;
+            Nodo nodoAnterior = null;
+            while (nodoActual != null) {
+                int comparacion = elem.compareTo(nodoActual.valor);
+                if (comparacion < 0){
+                    nodoAnterior = nodoActual;    
+                    nodoActual = nodoActual.nodoIzq;
+                } else if (comparacion > 0){
+                    nodoAnterior = nodoActual;    
+                    nodoActual = nodoActual.nodoDer;
+                } else{
+                    return null;
+                }
+            }
+            nodoActual = new Nodo(nodoAnterior,elem);
+            if (elem.compareTo(nodoAnterior.valor) < 0){
+                nodoAnterior.nodoIzq = nodoActual;
+            } else{
+                nodoAnterior.nodoDer = nodoActual;
+            }
+            return new HandleABB(nodoActual,this);
+        }
     }
 
     public boolean pertenece(T elem){
