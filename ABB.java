@@ -1,9 +1,6 @@
-package aed;
-
 public class ABB<T extends Comparable<T>> {
     private Nodo raiz;
-
-    private class Nodo {
+     private class Nodo {
         private Nodo padre;
         private Nodo nodoIzq;
         private Nodo nodoDer;
@@ -26,7 +23,7 @@ public class ABB<T extends Comparable<T>> {
             this._arbol = arbol;
         }
         @Override
-        public Object valor() {
+        public T valor() {
             return _nodo.valor;
         }
 
@@ -180,17 +177,17 @@ public class ABB<T extends Comparable<T>> {
         }
     }
 
-    public String toString(){
+   public String toString(){
         String res = "{";
         if (this.raiz == null){
             return "{}";
         } else {
             ABB_Iterador it = this.iterador();
             while (it.haySiguiente()) {
-               res = res.concat(it.siguiente().toString() + ',');
+               res = res.concat(it.siguiente().toString() + ", ");
             }
             res = res.concat("}");
-            res = res.replace(",}", "}");
+            res = res.replace(", }", "}");
         }
         return res; 
     }

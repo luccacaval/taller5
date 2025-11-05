@@ -1,8 +1,6 @@
-package aed;
-
 public class ListaEnlazada<T> {
-    Nodo primerNodo;
-    Nodo ultimoNodo;
+    private Nodo primerNodo;
+    private Nodo ultimoNodo;
     private int len;
 
     private class Nodo {
@@ -85,6 +83,8 @@ public class ListaEnlazada<T> {
     public void eliminar(int i) {
         if (len == 1){
             this.len = 0;
+            this.primerNodo = null;
+            this.ultimoNodo = null;
             return;
         }
         int j = 0;
